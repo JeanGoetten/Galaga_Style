@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour
         if(hurt == 3){
             lifeStar1.SetActive(false); 
             playerDie = true; 
-            timeToDie = 0; 
             Lose(); 
         }
 
@@ -62,11 +61,12 @@ public class GameController : MonoBehaviour
     }
     public void Win(){
         win_TXT.SetActive(true); 
-        Debug.Log("você venceu");
+        //Debug.Log("você venceu");
         Time.timeScale = 0f;
     }
     public void Lose(){
         lose_TXT.SetActive(true); 
-        Debug.Log("você perdeu");
+        //Debug.Log("você perdeu");
+        Time.timeScale = 0f;
     }
 }
