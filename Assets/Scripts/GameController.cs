@@ -63,6 +63,7 @@ public class GameController : MonoBehaviour
     public void Win(){
         win_TXT.SetActive(true); 
         Debug.Log("você venceu");
+        Time.timeScale = 0f;
     }
     public void Lose(){
         lose_TXT.SetActive(true); 
