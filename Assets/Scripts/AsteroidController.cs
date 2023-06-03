@@ -7,6 +7,7 @@ public class AsteroidController : MonoBehaviour
     Rigidbody2D rb; 
     public float speed; 
     Animator anim; 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 

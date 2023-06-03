@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpaceshipController : MonoBehaviour
 {
     Rigidbody2D rb; 
+
+    public GameController gameController; 
     public float speed; 
 
     public GameObject bulletPrefab; 
@@ -43,7 +45,7 @@ public class SpaceshipController : MonoBehaviour
             // cant shoot
         }
 
-        if(GameController.playerDie){
+        if(gameController.playerDie){
             Destroy(this.gameObject); 
         }
     }
@@ -65,7 +67,7 @@ public class SpaceshipController : MonoBehaviour
         if(other.gameObject.tag == "Asteroid"){
             Instantiate(FX_Explosion_1, transform.position, transform.rotation); 
             Destroy(other.gameObject); 
-            GameController.hurt++; 
+            gameController.hurt++; 
         }
     }
 }

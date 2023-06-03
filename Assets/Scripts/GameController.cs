@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro; 
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -16,21 +17,30 @@ public class GameController : MonoBehaviour
     public GameObject lifeStar2;  
     public GameObject lifeStar3;  
 
-    public static int points; 
-    public static int hurt; 
-    public static bool playerDie; 
+    public int points; 
+    public int hurt; 
+    public bool playerDie; 
+    public bool playing; 
 
 
     public float timeToDie = 60f; 
+
+    private void Awake() {
+        playing = true; 
+    }
 
     private void Start() {
         points = 0; 
         hurt = 0; 
         playerDie = false; 
-
     }
-
-    private void Update() {
+    private void Update(){
+        Debug.Log("playing " + playing);
+        if(!playing){
+            if(Input.anyKey){
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
 
         if(hurt == 1){
             lifeStar3.SetActive(false); 
@@ -38,15 +48,15 @@ public class GameController : MonoBehaviour
         if(hurt == 2){
             lifeStar2.SetActive(false); 
         }
-        if(hurt == 3){
+        if(hurt == 3 && playing){
             lifeStar1.SetActive(false); 
             playerDie = true; 
             Lose(); 
         }
 
-        if(timeToDie > 0){
+        if(timeToDie > 0 && playing){
             timeToDie -= Time.deltaTime; 
-        }else{
+        }else if(timeToDie <= 0 && playing){
             playerDie = true; 
             Lose(); 
         }
@@ -55,18 +65,19 @@ public class GameController : MonoBehaviour
         //Debug.Log(points);
         timer_TXT.text = ((int)timeToDie).ToString(); 
 
-        if(points >= 20){
+        if(points >= 20 && playing){
+            playerDie = false; 
             Win(); 
         }
     }
     public void Win(){
         win_TXT.SetActive(true); 
         //Debug.Log("você venceu");
-        Time.timeScale = 0f;
+        playing = false; 
     }
     public void Lose(){
         lose_TXT.SetActive(true); 
         //Debug.Log("você perdeu");
-        Time.timeScale = 0f;
+        playing = false; 
     }
 }

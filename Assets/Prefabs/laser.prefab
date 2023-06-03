@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fc24b75b5e5ae4ca19cce728ea1b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   speed: 7.5
   FX_Explosion_1: {fileID: 2592241192397061140, guid: 8cea093cb498338438923c94efe44929, type: 3}
 --- !u!114 &5998967974928358125
