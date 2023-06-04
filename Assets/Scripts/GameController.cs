@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
 
 
     public float timeToDie = 60f; 
+    public int pointsToWin; 
 
     private void Awake() {
         playing = true; 
@@ -33,13 +34,13 @@ public class GameController : MonoBehaviour
         points = 0; 
         hurt = 0; 
         playerDie = false; 
+
+        Cursor.visible = false; 
     }
     private void Update(){
-        Debug.Log("playing " + playing);
+        //Debug.Log("playing " + playing);
         if(!playing){
-            if(Input.anyKey){
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
+            StartCoroutine(Restart()); 
         }
 
         if(hurt == 1){
@@ -65,7 +66,7 @@ public class GameController : MonoBehaviour
         //Debug.Log(points);
         timer_TXT.text = ((int)timeToDie).ToString(); 
 
-        if(points >= 20 && playing){
+        if(points >= pointsToWin && playing){
             playerDie = false; 
             Win(); 
         }
@@ -79,5 +80,12 @@ public class GameController : MonoBehaviour
         lose_TXT.SetActive(true); 
         //Debug.Log("você perdeu");
         playing = false; 
+    }
+
+    IEnumerator Restart(){
+        yield return new WaitForSeconds(3f); 
+        if(Input.anyKey){
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
     }
 }

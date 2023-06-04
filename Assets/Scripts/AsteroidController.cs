@@ -15,7 +15,7 @@ public class AsteroidController : MonoBehaviour
         anim = GetComponent<Animator>(); 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         rb.velocity = new Vector3(0, -1f * speed, 0); 
     }

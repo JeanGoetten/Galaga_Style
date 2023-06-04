@@ -6,8 +6,8 @@ public class SoundController : MonoBehaviour
 {
     new AudioSource audio; 
     public GameController gameController; 
-    public AudioClip music_1;
-    public AudioClip music_2;
+    public AudioClip music_theme;
+    public AudioClip music_theme_low;
     public AudioClip music_end;
 
     private bool endGameStop; 
@@ -15,7 +15,8 @@ public class SoundController : MonoBehaviour
     {
         audio = GetComponent<AudioSource>();
 
-        audio.clip = music_1;
+        audio.clip = music_theme;
+        audio.volume = 1f;
         audio.Play();
 
         endGameStop = false; 
@@ -25,13 +26,17 @@ public class SoundController : MonoBehaviour
     void Update()
     {
         if(!gameController.playing && !endGameStop){
-            SFX_EndTheme(); 
+            StartCoroutine(SFX_EndTheme()); 
             endGameStop = true; 
         }
-        Debug.Log("endGameStop " + endGameStop);
+        //Debug.Log("endGameStop " + endGameStop);
     }
-    public void SFX_EndTheme(){
+    IEnumerator SFX_EndTheme(){
         audio.Stop();
         audio.PlayOneShot(music_end);
+        yield return new WaitForSeconds(3f); 
+        audio.clip = music_theme_low;
+        audio.volume = 0.5f;
+        audio.Play();
     }
 }

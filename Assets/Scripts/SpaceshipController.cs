@@ -22,9 +22,15 @@ public class SpaceshipController : MonoBehaviour
     public new Transform camera; 
 
     public GameObject FX_Explosion_1; 
+
+    public AudioClip sfx_hit;
+
+    new AudioSource audio; 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 
+
+        audio = GetComponent<AudioSource>();
 
         canShoot = true; 
         fireTime = 0; 
@@ -56,6 +62,7 @@ public class SpaceshipController : MonoBehaviour
             // verify and instatiate 
             if(canShoot){
                 camera.GetComponent<ScreenShake>().start = true; 
+                audio.PlayOneShot(sfx_hit);
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); 
                 
                 fireTime = 0; 
